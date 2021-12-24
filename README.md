@@ -6,6 +6,7 @@ The script first generates a custom Java Runtime Environment that only includes 
 Then it uses Launch4j to generate an .exe file that calls the .jar file using the custom JRE. <br>
 After that, warp-packer is used to pack the generated .exe and the custom JRE into a single .exe file that unpacks itsself at runtime and then starts the application. <br>
 If ```-icon <path_to_icon>``` is provided, then ResourceHacker is used to set a custom icon for the generated .exe. <br>
+
 Jeyy, that's it. Now you got a standalone .exe file to share!
 
 # Setup

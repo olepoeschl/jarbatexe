@@ -7,7 +7,7 @@ Batch script that turns a jar file into a self contained exe file
 * Download warp-packer and put it into path or into the same folder as jarbatexe.bat. https://github.com/dgiagio/warp <br>
 
 Optional: <br>
-* Download Resourcehacker and put it into path. Needed for setting an icon. http://www.angusj.com/resourcehacker/ <br>
+* Download Resourcehacker and put its installation folder into path. Needed for setting an icon. http://www.angusj.com/resourcehacker/ <br>
 
 # Usage
 ```

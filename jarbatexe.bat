@@ -6,7 +6,7 @@ REM --------------
 REM parse command line arguments
 set jarfile=""
 set exefile=""
-set ui="gui"
+set ui=gui
 set icon=""
 :readArgs
 if not "%1"=="" (
@@ -26,7 +26,7 @@ if not "%1"=="" (
         shift
     )
     if "%1"=="-headless" (
-        set ui="console"
+        set ui=console
         shift
     )
     if "%1"=="-icon" (

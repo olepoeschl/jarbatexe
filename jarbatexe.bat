@@ -6,12 +6,14 @@ REM --------------
 REM parse command line arguments
 set jarfile=""
 set exefile=""
+set ui="gui"
 set icon=""
 :readArgs
 if not "%1"=="" (
     if "%1"=="-help" (
 	echo Usage:	jarbatexe.bat -in ^<path_to_jar^> -out ^<path_to_exe^> [options]
 	echo   where options include
+	echo 	-headless		use this if your application does not have a GUI. Attention: it's not possible to make an exe file that works with command line parameters!
 	echo 	-icon ^<path_to_icon^>	set the icon of the generated executable ^(only .ico files^)
 	exit /b
     )
@@ -19,11 +21,15 @@ if not "%1"=="" (
         set jarfile="%2"
         shift
     )
-    IF "%1"=="-out" (
+    if "%1"=="-out" (
         set exefile="%2"
         shift
     )
-    IF "%1"=="-icon" (
+    if "%1"=="-headless" (
+        set ui="console"
+        shift
+    )
+    if "%1"=="-icon" (
         set icon=%2
         shift
     )
@@ -33,6 +39,7 @@ if not "%1"=="" (
 REM check if all mandatory arguments were passed
 REM 	echo %jarfile%
 REM 	echo %exefile%
+REM 	echo %headless%
 REM 	echo %icon%
 if %jarfile%=="" goto error
 if %exefile%=="" goto error
@@ -130,7 +137,7 @@ REM function to get the xml code needed for the Launch4j configuration file
 :writeLaunch4jConfig
 	set jarfileWithoutQuotes=%jarfile:"=%
 	SetLocal EnableDelayedExpansion
-	set configStr=^<?xml version="1.0" encoding="UTF-8"?^>^<launch4jConfig^>  ^<dontWrapJar^>false^</dontWrapJar^>  ^<headerType^>gui^</headerType^>  ^<jar^>%~dp0%jarfileWithoutQuotes%^</jar^>  ^<outfile^>%~dp0bundle\app.exe^</outfile^>  ^<errTitle^>^</errTitle^>  ^<cmdLine^>^</cmdLine^>  ^<chdir^>.^</chdir^>  ^<priority^>normal^</priority^>  ^<downloadUrl^>http://java.com/download^</downloadUrl^>  ^<supportUrl^>^</supportUrl^>  ^<stayAlive^>false^</stayAlive^>  ^<restartOnCrash^>false^</restartOnCrash^>  ^<manifest^>^</manifest^>  ^<jre^>    ^<path^>jre^</path^>    ^<bundledJre64Bit^>false^</bundledJre64Bit^>    ^<bundledJreAsFallback^>false^</bundledJreAsFallback^>    ^<minVersion^>^</minVersion^>    ^<maxVersion^>^</maxVersion^>    ^<jdkPreference^>preferJre^</jdkPreference^>    ^<runtimeBits^>64/32^</runtimeBits^>  ^</jre^>  ^<messages^>    ^<startupErr^>An error occurred while starting the application.^</startupErr^>    ^<bundledJreErr^>This application was configured to use a bundled Java Runtime Environment but the runtime is missing or corrupted.^</bundledJreErr^>    ^<jreVersionErr^>This application requires a Java Runtime Environment^</jreVersionErr^>    ^<launcherErr^>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.^</launcherErr^>    ^<instanceAlreadyExistsMsg^>An application instance is of NQueensFaf is already running.^</instanceAlreadyExistsMsg^>  ^</messages^>^</launch4jConfig^>
+	set configStr=^<?xml version="1.0" encoding="UTF-8"?^>^<launch4jConfig^>  ^<dontWrapJar^>false^</dontWrapJar^>  ^<headerType^>%ui%^</headerType^>  ^<jar^>%~dp0%jarfileWithoutQuotes%^</jar^>  ^<outfile^>%~dp0bundle\app.exe^</outfile^>  ^<errTitle^>^</errTitle^>  ^<cmdLine^>^</cmdLine^>  ^<chdir^>.^</chdir^>  ^<priority^>normal^</priority^>  ^<downloadUrl^>http://java.com/download^</downloadUrl^>  ^<supportUrl^>^</supportUrl^>  ^<stayAlive^>false^</stayAlive^>  ^<restartOnCrash^>false^</restartOnCrash^>  ^<manifest^>^</manifest^>  ^<jre^>    ^<path^>jre^</path^>    ^<bundledJre64Bit^>false^</bundledJre64Bit^>    ^<bundledJreAsFallback^>false^</bundledJreAsFallback^>    ^<minVersion^>^</minVersion^>    ^<maxVersion^>^</maxVersion^>    ^<jdkPreference^>preferJre^</jdkPreference^>    ^<runtimeBits^>64/32^</runtimeBits^>  ^</jre^>  ^<messages^>    ^<startupErr^>An error occurred while starting the application.^</startupErr^>    ^<bundledJreErr^>This application was configured to use a bundled Java Runtime Environment but the runtime is missing or corrupted.^</bundledJreErr^>    ^<jreVersionErr^>This application requires a Java Runtime Environment^</jreVersionErr^>    ^<launcherErr^>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.^</launcherErr^>    ^<instanceAlreadyExistsMsg^>An application instance is of NQueensFaf is already running.^</instanceAlreadyExistsMsg^>  ^</messages^>^</launch4jConfig^>
 	echo !configStr! > launch4j_config.xml
 	EndLocal
 	exit /b

@@ -6,6 +6,9 @@ The script first generates a custom Java Runtime Environment that only includes 
 Then it uses Launch4j to generate an .exe file that calls the .jar file using the custom JRE. <br>
 After that, warp-packer is used to pack the generated .exe and the custom JRE into a single .exe file that unpacks itsself at runtime and then starts the application. <br>
 If ```-icon <path_to_icon>``` is provided, then ResourceHacker is used to set a custom icon for the generated .exe. <br>
+Use ```-headless``` if you want to convert a console application. Otherwise it will not work.<br>
+
+Please note, that it is not possible to pass command line arguments to your application either way!
 
 Jeyy, that's it. Now you got a standalone .exe file to share!
 
@@ -19,5 +22,5 @@ Optional: <br>
 
 # Usage
 ```
-jarbatexe.bat -in <path_to_jar> -out <path_to_exe> [-icon <path_to_icon>]
+jarbatexe.bat -in <path_to_jar> -out <path_to_exe> [-icon <path_to_icon>] [-headless]
 ```

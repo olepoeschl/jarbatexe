@@ -10,7 +10,7 @@ Use ```-headless``` if you want to convert a console application. Otherwise it w
 
 Please note: if you don't generate your executable with ```-headless```, then it is not possible to pass command line arguments to your application!
 
-Jeyy, that's it. Now you got a standalone .exe file to share!
+Jeyy, that's it.
 
 # Setup
 * Put the bin folder of your java installation into PATH.<br>
